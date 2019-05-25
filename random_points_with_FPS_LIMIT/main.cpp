@@ -1,8 +1,9 @@
 #include <iostream>
+#include <chrono>
 #include <GL/glut.h>
 #include <ctime>
 
-#define FPS_RATE 60
+constexpr auto FPS_RATE = 60;
 
 using namespace std;
 
@@ -10,6 +11,17 @@ void init();
 void idleFunction();
 void displayFunction();
 void timerFunction(int number);
+
+double MyGetCurrentTime()
+{
+	using Duration = std::chrono::duration<double>;
+	return std::chrono::duration_cast<Duration>(
+		std::chrono::high_resolution_clock::now().time_since_epoch()
+		).count();
+}
+
+const double frame_delay = 1.0 / FPS_RATE; // 60 FPS
+double last_render = 0;
 
 void init()
 {
@@ -24,7 +36,12 @@ void init()
 
 void idleFunction()
 {
-	//glutPostRedisplay();
+	const double current_time = MyGetCurrentTime();
+	if ((current_time - last_render) > frame_delay)
+	{
+		last_render = current_time;
+		glutPostRedisplay();
+	}
 }
 
 void timerFunction(int number)
