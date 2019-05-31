@@ -26,6 +26,7 @@ double last_render = 0;
 void init()
 {
 	glutDisplayFunc(displayFunction); //устанавливаем функцию отображения
+	glutIdleFunc(idleFunction); //устанавливаем функцию ожидания
 	glClearColor(0.0, 0.0, 0.0, 0.0); //белый цвет для фона
 	glMatrixMode(GL_PROJECTION); //устанавливаем матрицу для проецирования 3D пространства или его участков в 2D!!!
 	glLoadIdentity(); //делаем текущую матрицу единичной
@@ -46,9 +47,7 @@ void displayFunction()
 {
 	glClear(GL_COLOR_BUFFER_BIT); //очищаем буффер цвета
 	glColor3f(1.0, 1.0, 1.0); //устанавливаем чёрный цвет
-	
 	/* рисуем */
-	
 	glutSwapBuffers(); //свапаем буффер
 }
 
