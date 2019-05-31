@@ -3,10 +3,10 @@
 #include <GL/glut.h>
 #include <ctime>
 
+using namespace std;
+
 constexpr auto FPS_RATE = 60;
 int windowHeight = 600, windowWidth = 600;
-
-using namespace std;
 
 void init();
 void idleFunction();
@@ -20,6 +20,7 @@ double getTime()
 		std::chrono::high_resolution_clock::now().time_since_epoch()
 		).count();
 }
+
 const double frame_delay = 1.0 / FPS_RATE;
 double last_render = 0;
 
