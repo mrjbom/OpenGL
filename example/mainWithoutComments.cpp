@@ -26,6 +26,7 @@ double last_render = 0;
 void init()
 {
 	glutDisplayFunc(displayFunction);
+	glutIdleFunc(idleFunction);
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -46,9 +47,7 @@ void displayFunction()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(1.0, 1.0, 1.0);
-	
 	/* рисуем */
-
 	glutSwapBuffers();
 }
 
