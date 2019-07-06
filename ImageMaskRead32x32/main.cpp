@@ -67,7 +67,7 @@ int wmain(int argc, wchar_t* argv[])
 		}
 	}
 	cout << "--------------------\n\n\n";
-	for (size_t i = 1; i <= 128; ++i)
+	for (int i = 1; i <= 128; ++i)
 	{
 		if (i % 4)
 			cout << finalMaskVector[i - 1] << ", ";
