@@ -8,8 +8,8 @@ constexpr auto FPS_RATE = 60;
 int windowHeight = 600, windowWidth = 600;
 
 void init();
-void idleFunction();
 void displayFunction();
+void idleFunction();
 double getTime();
 
 double getTime()
