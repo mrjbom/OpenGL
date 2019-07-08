@@ -9,7 +9,7 @@ int windowHeight = 600, windowWidth = 600;
 
 void init(); //функция инициализации
 void displayFunction(); //функция отображения
-void displayFunction(); //функция ожидания
+void idleFunction(); //функция ожидания
 double getTime(); //возвращает время
 
 double getTime()
@@ -54,7 +54,7 @@ void displayFunction()
 int main(int argc, char* argv[])
 {
 	glutInit(&argc, argv); //инициализируем glut
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH); //включаем двойной буффер, RGB, буффер глубины
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB); //включаем двойной буффер, RGB
 	glutInitWindowSize(windowWidth, windowHeight); //устанавливаем размеры
 	glutInitWindowPosition((GetSystemMetrics(SM_CXSCREEN) - 600) / 2, (GetSystemMetrics(SM_CYSCREEN) - 600) / 2); //позиция
 	glutCreateWindow("Window"); //создаём окно
