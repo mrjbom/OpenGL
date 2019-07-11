@@ -34,6 +34,9 @@ void init()
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(-windowWidth / 2, windowWidth / 2, -windowHeight / 2, windowHeight / 2, -windowDepth / 2, windowDepth / 2);
+	/* пояснение по поводу оси Z, можно подумать, что near ортогональной системы должен быть положительным,
+	   а far в ней, отрицательным, но т.к. в правосторонней системе(используемой в OpenGL) ось Z вылезает за экран,
+	   то OpenGL её инвертирует, поэтому параметр near должен быть отрицательным, а far положительным */
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glEnable(GL_DEPTH_TEST); //включаем глубину
 	glDepthFunc(GL_LEQUAL); //устанавливаем функцию глубины
