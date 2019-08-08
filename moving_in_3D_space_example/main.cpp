@@ -194,7 +194,6 @@ void keyboardFunction(unsigned char key, int w, int h)
 	case 27:
 		angle = 0;
 		speedRatio = 0;
-		//cam.set(Point3(0, 0, 350), Point3(0, 0, 349), Vector3(0, 1, 0));
 		currentCamPitchAngle = 0;
 		currentCamYawAngle = 0;
 		break;
