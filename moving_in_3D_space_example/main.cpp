@@ -6,8 +6,7 @@
 using namespace std;
 
 constexpr auto FPS_RATE = 120;
-int windowHeight = 600, windowWidth = 600, windowDepth = 600;
-float angle = 0, speedRatio = 0.0;
+int windowHeight = 600, windowWidth = 1000, windowDepth = 600;
 struct MyPoint3f
 {
 	float x;
@@ -61,26 +60,20 @@ void init()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	cam.SetPosition(glm::vec3(0, 0, 350));
-	cam.SetLookAt(glm::vec3(0, 0, 349));
-	cam.SetClipping(.1, 1000);
+	cam.SetPosition(glm::vec3(0, 350, 350));
+	cam.SetLookAt(glm::vec3(0, 350, 349));
+	cam.SetClipping(.1, 2000);
 	cam.SetFOV(45);
 }
 
 void displayFunction()
 {
-	angle += speedRatio;
-	if (angle >= 360 || angle <= -360) angle = 0;
-	if (camPitchAngle <= -360) camPitchAngle = 0;
-	if (camPitchAngle >= 360) camPitchAngle = 0;
-	if (camYawAngle <= -360) camYawAngle = 0;
-	if (camYawAngle >= 360) camYawAngle = 0;
-
-
-	currentCamPitchAngle += -(camPitchAngle * mouseSensitivity);
-	currentCamYawAngle += -(camYawAngle * mouseSensitivity);
-	cam.ChangePitch(-(camPitchAngle * mouseSensitivity));
+	if (abs(currentCamPitchAngle + -(camPitchAngle * mouseSensitivity)) < 0.90)
+		cam.ChangePitch(-(camPitchAngle * mouseSensitivity));
 	cam.ChangeHeading((camYawAngle * mouseSensitivity));
+	if (abs(currentCamPitchAngle + -(camPitchAngle * mouseSensitivity)) < 0.90)
+		currentCamPitchAngle += -(camPitchAngle * mouseSensitivity);
+	currentCamYawAngle += -(camYawAngle * mouseSensitivity);
 	camPitchAngle = 0; camYawAngle = 0;
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -91,30 +84,23 @@ void displayFunction()
 	cam.GetMatricies(projection, view, model);
 	glm::mat4 mvp = projection * view * model;
 	glLoadMatrixf(glm::value_ptr(mvp));
-
 	glMatrixMode(GL_MODELVIEW);
 
-	glPushMatrix();
-
-	glRotatef(angle, 1, 0, 0);
-	glRotatef(angle, 0, 1, 0);
-
-	glColor3f(0, 1, 0);
-	glutWireCube(150.0);
-
+	//grid
 	glBegin(GL_LINES);
-	glColor3f(1, 0, 0);
-	for (int i = 0; i <= 75; i += 5)
+	glColor3f(0, 1, 0);
+	for (int i = -1000; i <= 1000; i += 25)
 	{
-		glVertex3i(i, 0, 0);
-		glVertex3i(-i, 0, 0);
-		glVertex3i(0, i, 0);
-		glVertex3i(0, -i, 0);
-		glVertex3i(0, 0, i);
-		glVertex3i(0, 0, -i);
+		glVertex3i(i, 0, -1000);
+		glVertex3i(i, 0, 1000);
+	}
+	for (int i = -1000; i <= 1000; i += 25)
+	{
+		glVertex3i(-1000, 0, i);
+		glVertex3i(1000, 0, i);
 	}
 	glEnd();
-	glPopMatrix();
+
 
 	if (GetAsyncKeyState(VK_LSHIFT))
 	{
@@ -162,13 +148,11 @@ void keyboardFunction(unsigned char key, int w, int h)
 	switch (key)
 	{
 	case '+': case '=':
-		speedRatio += 0.125;
 		break;
 	case '-': case '_':
-		speedRatio -= 0.125;
 		break;
 	case 'w': case 'W':
-		for(int z = 0; z < camMoveSpeed; ++z)
+		for (int z = 0; z < camMoveSpeed; ++z)
 			cam.Move(FORWARD);
 		break;
 	case 'a': case 'A':
@@ -192,8 +176,6 @@ void keyboardFunction(unsigned char key, int w, int h)
 			cam.Move(UP);
 		break;
 	case 27:
-		angle = 0;
-		speedRatio = 0;
 		currentCamPitchAngle = 0;
 		currentCamYawAngle = 0;
 		break;
