@@ -78,7 +78,6 @@ void displayFunction()
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	glEnable(GL_CULL_FACE);
 	glm::mat4 model, view, projection;
 	cam.Update();
 	cam.GetMatricies(projection, view, model);
