@@ -25,13 +25,6 @@ Camera cam;
 int imageWidth = 0, imageHeight = 0;
 unsigned char* image = 0;
 GLuint texture;
-float texCoords[] =
-{
-	-150, 150, 0,
-	150, 150, 0,
-	150, 450, 0,
-	-150, 450, 0
-};
 
 void init();
 void displayFunction();
