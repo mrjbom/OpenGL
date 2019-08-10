@@ -1,6 +1,5 @@
 #include <iostream>
 #include <chrono>
-#include <GL/glew.h> //for glGenerateMipmap
 #include <GL/glut.h>
 #include <soil.h>
 #include "camera.h"
