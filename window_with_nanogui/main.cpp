@@ -92,6 +92,7 @@ int main(int argc, char* argv[])
 	glutInitWindowSize(windowWidth, windowHeight);
 	glutInitWindowPosition((GetSystemMetrics(SM_CXSCREEN) - windowWidth) / 2, (GetSystemMetrics(SM_CYSCREEN) - windowHeight) / 2);
 	glutCreateWindow("Window");
+	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_CONTINUE_EXECUTION);
 	init();
 
 	IMGUI_CHECKVERSION();
